@@ -6,11 +6,47 @@ public class GuessTheNumber {
         Scanner scanner = new Scanner(System.in);
         Random rand = new Random();
         
-        int numberToGuess = rand.nextInt(10) + 1; // Number between 1 and 10
+        // Asking the user for the difficulty level
+        System.out.println("Choose a difficulty level:");
+        System.out.println("1. Easy (1 to 10)");
+        System.out.println("2. Medium (1 to 20)");
+        System.out.println("3. Hard (1 to 50)");
+        
+        int difficulty = 0;
+        boolean validInput = false;
+        
+        // Loop until the user enters a valid choice
+        while (!validInput) {
+            System.out.print("Enter your choice (1/2/3): ");
+            difficulty = scanner.nextInt();
+            
+            if (difficulty == 1 || difficulty == 2 || difficulty == 3) {
+                validInput = true;
+            } else {
+                System.out.println("Invalid choice. Please choose 1, 2, or 3.");
+            }
+        }
+        
+        // Set the range based on the chosen difficulty
+        int maxNumber = 0;
+        switch (difficulty) {
+            case 1: // Easy
+                maxNumber = 10;
+                break;
+            case 2: // Medium
+                maxNumber = 20;
+                break;
+            case 3: // Hard
+                maxNumber = 50;
+                break;
+        }
+        
+        // Generate the random number to guess based on the selected difficulty
+        int numberToGuess = rand.nextInt(maxNumber) + 1;
         int guess = 0;
         
-        System.out.println("Welcome to Guess the Number!");
-        System.out.println("I'm thinking of a number between 1 and 10. Can you guess it?");
+        System.out.println("You chose " + (difficulty == 1 ? "Easy" : difficulty == 2 ? "Medium" : "Hard") + " mode.");
+        System.out.println("I'm thinking of a number between 1 and " + maxNumber + ". Can you guess it?");
         
         while (guess != numberToGuess) {
             System.out.print("Enter your guess: ");
@@ -24,6 +60,7 @@ public class GuessTheNumber {
                 System.out.println("Congratulations! You guessed it!");
             }
         }
+        
         scanner.close();
     }
 }
